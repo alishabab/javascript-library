@@ -48,22 +48,22 @@ function addBookToLibrary() {
 const renderForm = () => {
   const form = document.querySelector('#form');
 
-  form.innerHTML = `<label for="title">Title</label>
+  form.innerHTML = `<label for="title">Title</label> 
 
   <input type="text" name="title" id="title" />
-
-  <label for="author">author</label>
+  <br>
+  <label for="author">Author</label>
 
   <input type="text" name="author" id="author" />
+  <br>
+  <label for="pages">Pages</label>
 
-  <label for="pages">pages</label>
-
-  <input type="text" name="pages" id="pages" />
-
-  <label for="read">read</label>
+  <input type="number" name="pages" id="pages" />
+  <br>
+  <label for="read">Read</label>
 
   <input type="checkbox" name="read" id="read" />
-
+  <br>
   <button type="submit" id= 'create'>Create Book</button>`;
 
   document.querySelector('#create').addEventListener('click', addBookToLibrary);
@@ -86,7 +86,7 @@ const renderBooks = (div) => {
     bookArray.forEach((book, i) => {
       const li = document.createElement('li');
 
-      li.innerText = `${bookArray[i][0]}-${bookArray[i][1]}`;
+      li.innerHTML = `<strong>${bookArray[i][0].toUpperCase()}</strong> : ${bookArray[i][1]}`;
 
       ul.appendChild(li);
     });
@@ -101,7 +101,7 @@ const renderBooks = (div) => {
 
     const deleteBtn = document.createElement('button');
 
-    deleteBtn.innerText = `Delete book${index}`;
+    deleteBtn.innerText = 'Delete book';
 
     deleteBtn.setAttribute('id', `book${index}`);
 
