@@ -1,4 +1,4 @@
-const myLibrary = [];
+const myLibrary = []
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -10,8 +10,11 @@ function Book(title, author, pages, read) {
   // };
 }
 
-Book.prototype.isRead = function () {
-  this.read = !read;
+Book.prototype.isRead =  function(book,cb) {
+  return function() {
+  book.read = !book.read;
+  cb()
+  }
 };
 
 let cbutton;
@@ -56,13 +59,15 @@ function render() {
   div.innerHTML = '';
   myLibrary.forEach((book, index) => {
     const ul = document.createElement('ul');
-    for (const bookItem in book) {
+    bookArray = Object.entries(book)
+    for (const i in bookArray ) {
       const li = document.createElement('li');
-      li.innerText = book[bookItem];
+      li.innerText = `${bookArray[i][0]}-${bookArray[i][1]}`;
       ul.appendChild(li);
     }
-    const toggle = document.createElement('input');
-    toggle.setAttribute('type', 'checkbox');
+    const toggle = document.createElement('button');
+    toggle.innerText = `${!book.read?'Read':'Unread'}`
+    toggle.setAttribute('type', 'submit');
     ul.appendChild(toggle);
     const dltb = document.createElement('button');
     dltb.innerText = `Delete book${index}`;
@@ -70,7 +75,7 @@ function render() {
     ul.appendChild(dltb);
     div.appendChild(ul);
     dltb.addEventListener('click', deleteBook(index));
-    toggle.addEventListener('click', book.isRead);
+    toggle.addEventListener('click', book.isRead(book,render));
   });
 }
 
@@ -78,4 +83,5 @@ function render() {
 const book1 = new Book('Hobbit', 'J.R.R. Tolkien', 295, true);
 myLibrary.push(book1);
 render();
+/*eslint linebreak-style: ["error", "windows"]*/
 // console.log(book1.info());
