@@ -6,7 +6,7 @@
 
 > In this project we built a library app using JavaScript. A user can add a book, delete a book to library and update read status. App uses modern JavaScript syntax to create objects and functions.
 
-![screenshot](screenshot.png)
+![screenshot](screenshot.PNG)
 
 ## Built With
 
