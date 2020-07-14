@@ -1,6 +1,8 @@
 // eslint-disable-next-line import/extensions
 import { Book, myLibrary } from './library.js';
 
+const form = document.querySelector('#form');
+
 const clearElement = (element) => {
   element.innerHTML = '';
 };
@@ -13,47 +15,51 @@ function addBookToLibrary() {
   const pages = document.querySelector('#pages').value;
 
   const read = document.querySelector('#read').checked;
+  if (title.length > 0 && author.length > 0 && pages.length > 0) {
+    const newbook = new Book(title, author, pages, read);
 
-  const newbook = new Book(title, author, pages, read);
+    myLibrary.push(newbook);
 
-  myLibrary.push(newbook);
-
-  clearElement(document.querySelector('#form'));
-  // eslint-disable-next-line no-use-before-define
-  render();
+    form.classList.toggle('hide');
+    // clearElement(document.querySelector('#form'));
+    // eslint-disable-next-line no-use-before-define
+    render();
+  } else {
+    // eslint-disable-next-line no-alert
+    window.alert('Title/Author/Pages must not be empty');
+  }
 }
 
 const renderForm = () => {
-  const form = document.querySelector('#form');
+  form.classList.toggle('hide');
+  // form.innerHTML = `<label for="title" (required)>Title</label>
 
-  form.innerHTML = `<label for="title" (required)>Title</label> 
+  // <input type="text" name="title" id="title" required minlength="6" maxlength="6">
+  // <br>
+  // <label for="author">Author</label>
 
-  <input type="text" name="title" id="title" required minlength="6" maxlength="6">
-  <br>
-  <label for="author">Author</label>
+  // <input type="text" name="author" id="author" required>
+  // <br>
+  // <label for="pages">Pages</label>
 
-  <input type="text" name="author" id="author" required>
-  <br>
-  <label for="pages">Pages</label>
+  // <input type="number" name="pages" id="pages" required>
+  // <br>
+  // <label for="read">Read</label>
 
-  <input type="number" name="pages" id="pages" required>
-  <br>
-  <label for="read">Read</label>
+  // <input type="checkbox" name="read" id="read" />
+  // <br>
+  // <button type="submit" id= 'create'>Create Book</button>`;
 
-  <input type="checkbox" name="read" id="read" />
-  <br>
-  <button type="submit" id= 'create'>Create Book</button>`;
-
-  document.querySelector('#create').addEventListener('click', addBookToLibrary);
+  // document.querySelector('#create').addEventListener('click', addBookToLibrary);
 };
 
-function render() {
+const render = () => {
   const div = document.querySelector('.work');
 
   clearElement(div);
   // eslint-disable-next-line no-use-before-define
   renderBooks(div);
-}
+};
 
 const renderBooks = (div) => {
   myLibrary.forEach((book, index) => {
@@ -69,13 +75,13 @@ const renderBooks = (div) => {
       ul.appendChild(li);
     });
 
-    const toggle = document.createElement('button');
+    const readBtn = document.createElement('button');
 
-    toggle.innerText = `${!book.read ? 'Read' : 'Unread'}`;
+    readBtn.innerText = `${!book.read ? 'Read' : 'Unread'}`;
 
-    toggle.setAttribute('type', 'submit');
+    readBtn.setAttribute('type', 'submit');
 
-    ul.appendChild(toggle);
+    ul.appendChild(readBtn);
 
     const deleteBtn = document.createElement('button');
 
@@ -89,13 +95,13 @@ const renderBooks = (div) => {
 
     deleteBtn.addEventListener('click', () => { Book.deleteBook(index, render); });
 
-    toggle.addEventListener('click', () => { book.isRead(render); });
+    readBtn.addEventListener('click', () => { book.isRead(render); });
   });
 };
 
 
 const book1 = new Book('Hobbit', 'J.R.R. Tolkien', 295, true);
-
+document.querySelector('#create').addEventListener('click', addBookToLibrary);
 myLibrary.push(book1);
 document.querySelector('#addBookBtn').addEventListener('click', renderForm);
 render();
