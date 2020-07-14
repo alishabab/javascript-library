@@ -1,6 +1,28 @@
 // eslint-disable-next-line import/extensions
 import { Book, myLibrary } from './library.js';
 
+const clearElement = (element) => {
+  element.innerHTML = '';
+};
+
+function addBookToLibrary() {
+  const title = document.querySelector('#title').value;
+
+  const author = document.querySelector('#author').value;
+
+  const pages = document.querySelector('#pages').value;
+
+  const read = document.querySelector('#read').checked;
+
+  const newbook = new Book(title, author, pages, read);
+
+  myLibrary.push(newbook);
+
+  clearElement(document.querySelector('#form'));
+  // eslint-disable-next-line no-use-before-define
+  render();
+}
+
 const renderForm = () => {
   const form = document.querySelector('#form');
 
@@ -24,30 +46,6 @@ const renderForm = () => {
 
   document.querySelector('#create').addEventListener('click', addBookToLibrary);
 };
-
-const clearElement = (element) => {
-  element.innerHTML = '';
-};
-
-function addBookToLibrary() {
-  const title = document.querySelector('#title').value;
-
-  const author = document.querySelector('#author').value;
-
-  const pages = document.querySelector('#pages').value;
-
-  const read = document.querySelector('#read').checked;
-
-  const newbook = new Book(title, author, pages, read);
-
-  myLibrary.push(newbook);
-
-  clearElement(document.querySelector('#form'));
-  // eslint-disable-next-line no-use-before-define
-  render();
-}
-
-
 
 function render() {
   const div = document.querySelector('.work');
