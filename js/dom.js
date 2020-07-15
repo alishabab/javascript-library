@@ -19,6 +19,11 @@ const render = () => {
   renderBooks(div);
 };
 
+const notify = (text) => {
+  const toast = document.querySelector('.notify');
+  toast.textContent = text;
+};
+
 function addBookToLibrary() {
   const title = document.querySelector('#title').value;
 
@@ -31,12 +36,11 @@ function addBookToLibrary() {
     const newbook = new Book(title, author, pages, read);
 
     myLibrary.push(newbook);
-
+    document.getElementById('reset').click();
     renderForm();
     render();
   } else {
-    // eslint-disable-next-line no-alert
-    window.alert('Title/Author/Pages must not be empty');
+    notify('Title/Author/Pages must not be empty. Please try again');
   }
 }
 
@@ -89,4 +93,5 @@ const Listeners = () => {
 Listeners();
 const demoBook = new Book('Hobbit', 'J.R.R. Tolkien', 295, true);
 myLibrary.push(demoBook);
+
 render();
