@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./stylesheet/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 class="text-center main-logo">My Library</h1>
+    <button id="addBookBtn" class="center-it">Add Book</button>
+    <h5 class="notify"></h5>
+    <form id="form" class="hide">
+      <label for="title">Title</label>
+
+      <input required type="text" name="title" id="title" />
+      <br />
+      <label for="author">Author</label>
+
+      <input required type="text" name="author" id="author" />
+      <br />
+      <label for="pages">Pages</label>
+
+      <input requried type="number" name="pages" id="pages" />
+      <br />
+      <label for="read">Read</label>
+
+      <input type="checkbox" name="read" id="read" />
+      <br />
+      <button type="button" id="create">Create Book</button>
+      <button type="reset" id="reset">Reset Form</button>
+    </form>
+
+    <div class="work"></div>
+    <script type="module" src="./js/dom.js"></script>
+  </body>
+</html>
