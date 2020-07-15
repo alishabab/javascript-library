@@ -3,8 +3,20 @@ import { Book, myLibrary } from './library.js';
 
 const form = document.querySelector('#form');
 
-const clearElement = (element) => {
-  element.innerHTML = '';
+const clearElement = (el) => {
+  while (el.firstChild) el.removeChild(el.firstChild);
+};
+
+const renderForm = () => {
+  form.classList.toggle('hide');
+};
+
+const render = () => {
+  const div = document.querySelector('.work');
+
+  clearElement(div);
+  // eslint-disable-next-line no-use-before-define
+  renderBooks(div);
 };
 
 function addBookToLibrary() {
@@ -20,46 +32,13 @@ function addBookToLibrary() {
 
     myLibrary.push(newbook);
 
-    form.classList.toggle('hide');
-    // clearElement(document.querySelector('#form'));
-    // eslint-disable-next-line no-use-before-define
+    renderForm();
     render();
   } else {
     // eslint-disable-next-line no-alert
     window.alert('Title/Author/Pages must not be empty');
   }
 }
-
-const renderForm = () => {
-  form.classList.toggle('hide');
-  // form.innerHTML = `<label for="title" (required)>Title</label>
-
-  // <input type="text" name="title" id="title" required minlength="6" maxlength="6">
-  // <br>
-  // <label for="author">Author</label>
-
-  // <input type="text" name="author" id="author" required>
-  // <br>
-  // <label for="pages">Pages</label>
-
-  // <input type="number" name="pages" id="pages" required>
-  // <br>
-  // <label for="read">Read</label>
-
-  // <input type="checkbox" name="read" id="read" />
-  // <br>
-  // <button type="submit" id= 'create'>Create Book</button>`;
-
-  // document.querySelector('#create').addEventListener('click', addBookToLibrary);
-};
-
-const render = () => {
-  const div = document.querySelector('.work');
-
-  clearElement(div);
-  // eslint-disable-next-line no-use-before-define
-  renderBooks(div);
-};
 
 const renderBooks = (div) => {
   myLibrary.forEach((book, index) => {
@@ -69,15 +48,18 @@ const renderBooks = (div) => {
 
     bookArray.forEach((book, i) => {
       const li = document.createElement('li');
-
-      li.innerHTML = `<strong>${bookArray[i][0].toUpperCase()}</strong> : ${bookArray[i][1]}`;
-
+      const strong = document.createElement('STRONG');
+      const name = document.createElement('span');
+      strong.textContent = `${bookArray[i][0].toUpperCase()} : `;
+      name.textContent = `${bookArray[i][1]}`;
+      li.appendChild(strong);
+      li.appendChild(name);
       ul.appendChild(li);
     });
 
     const readBtn = document.createElement('button');
 
-    readBtn.innerText = `${!book.read ? 'Read' : 'Unread'}`;
+    readBtn.textContent = `${!book.read ? 'Read' : 'Unread'}`;
 
     readBtn.setAttribute('type', 'submit');
 
@@ -85,7 +67,7 @@ const renderBooks = (div) => {
 
     const deleteBtn = document.createElement('button');
 
-    deleteBtn.innerText = 'Delete book';
+    deleteBtn.textContent = 'Delete book';
 
     deleteBtn.setAttribute('id', `book${index}`);
 
@@ -99,9 +81,12 @@ const renderBooks = (div) => {
   });
 };
 
+const Listeners = () => {
+  document.querySelector('#create').addEventListener('click', addBookToLibrary);
+  document.querySelector('#addBookBtn').addEventListener('click', renderForm);
+};
 
-const book1 = new Book('Hobbit', 'J.R.R. Tolkien', 295, true);
-document.querySelector('#create').addEventListener('click', addBookToLibrary);
-myLibrary.push(book1);
-document.querySelector('#addBookBtn').addEventListener('click', renderForm);
+Listeners();
+const demoBook = new Book('Hobbit', 'J.R.R. Tolkien', 295, true);
+myLibrary.push(demoBook);
 render();
