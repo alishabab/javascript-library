@@ -39,6 +39,7 @@ function addBookToLibrary() {
     document.getElementById('reset').click();
     renderForm();
     render();
+    notify('Book Added!!');
   } else {
     notify('Title/Author/Pages must not be empty. Please try again');
   }
