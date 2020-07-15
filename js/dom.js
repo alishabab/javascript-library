@@ -80,7 +80,7 @@ const renderBooks = (div) => {
 
     div.appendChild(ul);
 
-    deleteBtn.addEventListener('click', () => { Book.deleteBook(index, render); });
+    deleteBtn.addEventListener('click', () => { Book.deleteBook(index, render, notify); });
 
     readBtn.addEventListener('click', () => { book.isRead(render); });
   });

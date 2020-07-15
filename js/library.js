@@ -17,8 +17,9 @@ export class Book {
     render();
   }
 
-  static deleteBook(index, render) {
+  static deleteBook(index, render, notify) {
     myLibrary.splice(index, 1);
+    notify('Book Deleted!!');
     render();
   }
 }
